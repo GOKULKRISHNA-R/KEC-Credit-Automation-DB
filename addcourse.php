@@ -11,14 +11,15 @@ $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input') );
 
-$sql = "INSERT INTO college_courses(course_code,course_name,course_duration,course_credit,course_is_for,offered_by) VALUES(:code, :name, :weeks, :credits, :year,:email)";
+$sql = "INSERT INTO college_courses(course_code,course_name,course_duration,course_credit,course_is_for,offered_by,marksheet) VALUES(:code, :name, :weeks, :credits, :year, :email, :marksheet)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':code', $user->code);
-$stmt->bindParam(':name', $user->name  );
+$stmt->bindParam(':name', $user->name );
 $stmt->bindParam(':weeks', $user->weeks );
 $stmt->bindParam(':credits', $user->credits );
 $stmt->bindParam(':year', $user->year );
 $stmt->bindParam(':email', $user->email );
+$stmt->bindParam(':marksheet', $user->marksheet );
 
 if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
@@ -26,3 +27,8 @@ if($stmt->execute()) {
     $response = ['status' => 0, 'message' => 'Failed to create record.'];
 }
 echo json_encode($response);
+
+
+// ALTER TABLE `college_courses` ADD `marksheet` VARCHAR(500) NOT NULL AFTER `offered_by`;
+// DELETE FROM college_courses WHERE `course_duration` = 44 ;
+//ALTER TABLE `college_courses` ADD PRIMARY KEY(`course_code`);
