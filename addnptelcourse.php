@@ -10,8 +10,9 @@ $objDb = new DbConnect;
 $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input') );
-
-$sql = "INSERT INTO nptel_course(course_code,course_name,type_of_certificate,weeks,credits,assignment_score,exam_score,final_score,certificate) VALUES(null, :name, :type,:weeks, :credits,:assignment_score,:exam_score,:final_score,:proof)";
+echo "user";
+echo "$user->roll";
+$sql = "INSERT INTO nptel_course(course_code,course_name,type_of_certificate,weeks,credits,assignment_score,exam_score,final_score,certificate,student_roll) VALUES(null, :name, :type,:weeks, :credits,:assignment_score,:exam_score,:final_score,:proof,:roll)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':name', $user->name  );
 $stmt->bindParam(':type', $user->type  );
@@ -21,6 +22,7 @@ $stmt->bindParam(':assignment_score', $user->assignment_score );
 $stmt->bindParam(':exam_score', $user->exam_score );
 $stmt->bindParam(':final_score', $user->final_score );
 $stmt->bindParam(':proof', $user->proof );
+$stmt->bindParam(':roll', $user->roll );
 
 if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
