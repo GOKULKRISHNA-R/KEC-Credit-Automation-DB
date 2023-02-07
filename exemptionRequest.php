@@ -11,7 +11,7 @@ $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input') );
 
-$sql = "INSERT INTO exemption(roll,semester,type_of_course,academic_course_code,academic_course_name,academic_course_credit,course_code,course_credit,course_name) VALUES(:roll, :sem, :type, :code,:name,:credit,:code1,:name1,:credit1)";
+$sql = "INSERT INTO exemption_requests(roll,semester,type_of_course,academic_course_code,academic_course_name,academic_course_credit,course_code,course_credit,course_name,approve_status) VALUES(:roll, :sem, :type, :code,:name,:credit,:code1,:credit1,:name1,:approve_status)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':roll', $user->roll);
 $stmt->bindParam(':sem', $user->sem  );
@@ -22,6 +22,7 @@ $stmt->bindParam(':credit', $user->credit );
 $stmt->bindParam(':code1', $user->code1 );
 $stmt->bindParam(':credit1', $user->credit1 );
 $stmt->bindParam(':name1', $user->name1 );
+$stmt->bindParam(':approve_status', $user->approve_status );
 if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
 } else {
