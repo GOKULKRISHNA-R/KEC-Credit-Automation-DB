@@ -9,7 +9,7 @@ include 'DbConnect.php';
 $objDb = new DbConnect;
 $conn = $objDb->connect();
 
-$sql = "SELECT * FROM exemption_requests";
+$sql = "SELECT * FROM exemption";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
