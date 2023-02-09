@@ -39,3 +39,4 @@ echo json_encode($response);
 // ALTER TABLE `college_courses` ADD `marksheet` VARCHAR(500) NOT NULL AFTER `offered_by`;
 // DELETE FROM college_courses WHERE `course_duration` = 44 ;
 //ALTER TABLE `college_courses` ADD PRIMARY KEY(`course_code`);
+// ALTER TABLE college_courses DROP COLUMN `marksheet`;

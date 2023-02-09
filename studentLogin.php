@@ -15,8 +15,8 @@ header("Access-Control-Allow-Methods: *");
 	}
 	else{
     $user = json_decode( file_get_contents('php://input') );
-		$name = $user->username ?? "none";
-		$password = $user->password ?? "none";
+	$name = $user->username ?? "none";
+	$password = $user->password ?? "none";
 		
     $sql = "SELECT * FROM student WHERE rollNumber= '$name' AND passcode = '$password';";
     $stmt = $conn->prepare($sql);
