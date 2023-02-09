@@ -10,16 +10,16 @@ $objDb = new DbConnect;
 $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input'));
-
-$sql = "INSERT INTO college_courses(course_code,course_name,course_duration,course_credit,course_is_for,offered_by,marksheet) VALUES(:code, :name, :weeks, :credits, :year, :email, :marksheet)";
+if ($user === NULL) {
+        return false;
+    }
+$array = $user->course_code;
+// $str=implode(",")
+$sql = "INSERT INTO opted_in(student_roll,course_id) VALUES(:code, :course)";
 $stmt = $conn->prepare($sql);
-$stmt->bindParam(':code', $user->code);
-$stmt->bindParam(':name', $user->name );
-$stmt->bindParam(':weeks', $user->weeks );
-$stmt->bindParam(':credits', $user->credits );
-$stmt->bindParam(':year', $user->year );
-$stmt->bindParam(':email', $user->email );
-$stmt->bindParam(':marksheet', $user->marksheet );
+echo "echo,$user->student_id";
+$stmt->bindParam(':code', $user->student_id);
+$stmt->bindParam(':course', $user->course_code);
 
 if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
