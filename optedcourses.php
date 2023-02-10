@@ -17,15 +17,22 @@ $array = $user->course_code;
 // $str=implode(",")
 $sql = "INSERT INTO opted_in(student_roll,course_id) VALUES(:code, :course)";
 $stmt = $conn->prepare($sql);
-echo "echo,$user->student_id";
+// echo "echo,$user->student_id";
 $stmt->bindParam(':code', $user->student_id);
 $stmt->bindParam(':course', $user->course_code);
-
-if($stmt->execute()) {
+try{if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
 } else {
+
     $response = ['status' => 0, 'message' => 'Failed to create record.'];
+}}
+catch(Exception $e){
+        $response = ['status' => 0, 'message' => 'Failed to create record.'];
+        // $alert = "<script>alert('Error')</script>";
+        // echo $alert;
 }
+    
+
 echo json_encode($response);
 
 
