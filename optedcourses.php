@@ -14,10 +14,8 @@ if ($user === NULL) {
         return false;
     }
 $array = $user->course_code;
-// $str=implode(",")
 $sql = "INSERT INTO opted_in(student_roll,course_id) VALUES(:code, :course)";
 $stmt = $conn->prepare($sql);
-// echo "echo,$user->student_id";
 $stmt->bindParam(':code', $user->student_id);
 $stmt->bindParam(':course', $user->course_code);
 try{if($stmt->execute()) {
@@ -27,9 +25,7 @@ try{if($stmt->execute()) {
     $response = ['status' => 0, 'message' => 'Failed to create record.'];
 }}
 catch(Exception $e){
-        $response = ['status' => 0, 'message' => 'Failed to create record.'];
-        // $alert = "<script>alert('Error')</script>";
-        // echo $alert;
+        $response = ['status' => -1, 'message' => $e];
 }
     
 
