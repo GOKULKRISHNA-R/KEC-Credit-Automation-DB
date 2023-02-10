@@ -27,8 +27,7 @@ try{if($stmt->execute()) {
     $response = ['status' => -1, 'message' => 'Failed to create record.'];
 }}
 catch(Exception $e){
-        $response = ['status' => 0, 'message' => 'Failed to create record.'];
-        
+        $response = ['status' => -1, 'message' => $e];
 }
     
 

@@ -16,7 +16,6 @@ header("Access-Control-Allow-Methods: *");
 	else{
     $user = json_decode( file_get_contents('php://input') );
 	$name = $user->username ?? "none";
-	echo $name ;
     $sql = "SELECT * FROM student WHERE rollNumber= '$name' ";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
