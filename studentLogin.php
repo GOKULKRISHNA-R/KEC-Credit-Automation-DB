@@ -18,7 +18,7 @@ header("Access-Control-Allow-Methods: *");
 	$name = $user->username ?? "none";
 	$password = $user->password ?? "none";
 		
-    $sql = "SELECT * FROM student WHERE rollNumber= '$name' AND passcode = '$password';";
+    $sql = "SELECT * FROM student_new WHERE roll_no= '$name' AND passcode = '$password';";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);

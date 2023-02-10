@@ -14,7 +14,7 @@ if ($user === NULL) {
         return false;
     }
 $array = $user->course_code;
-$sql = "INSERT INTO opted_in(student_roll,course_id) VALUES(:code, :course)";
+$sql = "INSERT INTO opted_in(student_roll,course_code) VALUES(:code, :course)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':code', $user->student_id);
 $stmt->bindParam(':course', $user->course_code);
