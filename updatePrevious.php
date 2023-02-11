@@ -11,10 +11,13 @@ $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input') );
 
-$sql = "UPDATE exemption SET approve_status = 1 WHERE roll=:roll";
+$sql = "UPDATE previous_records SET credit_used=(credit_used+:usedcredit),credit_balance= (credit_balance-:usedcredit) WHERE roll_no=:roll AND course_code = :code";
 $stmt = $conn->prepare($sql);
-$stmt->bindParam(':roll', $user->username);
+$stmt->bindParam(':usedcredit', $user->usedcredit);
+$stmt->bindParam(':roll', $user->roll);
+$stmt->bindParam(':code', $user->code);
+
 if($stmt->execute()){
-  echo "update approve Success";
+  echo "Success";
 }
 

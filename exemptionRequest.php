@@ -11,18 +11,25 @@ $conn = $objDb->connect();
  
 $user = json_decode( file_get_contents('php://input') );
 
-$sql = "INSERT INTO exemption(roll,semester,type_of_course,academic_course_code,academic_course_name,academic_course_credit,course_code,course_credit,course_name,approve_status) VALUES(:roll, :sem, :type, :code,:name,:credit,:code1,:credit1,:name1,:approve_status)";
+$sql = "INSERT INTO exemption(roll	,semester,	type_of_course,	academic_course_code,	academic_course_name,	academic_course_credit,	course_code,	course_credit,	course_name,	approve_status,	course_code2,	course_name2,	course_credit2	,used_credit1,	used_credit2) 
+VALUES(:roll	,:semester	,:type_of_course	,:academic_course_code	,:academic_course_name	,:academic_course_credit	,:course_code	,:course_credit	,:course_name	,:approve_status	,:course_code2	,:course_name2	,:course_credit2	,:used_credit1	,:used_credit2	)";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':roll', $user->roll);
-$stmt->bindParam(':sem', $user->sem  );
-$stmt->bindParam(':type', $user->type );
-$stmt->bindParam(':code', $user->code );
-$stmt->bindParam(':name', $user->name );
-$stmt->bindParam(':credit', $user->credit );
-$stmt->bindParam(':code1', $user->code1 );
-$stmt->bindParam(':credit1', $user->credit1 );
-$stmt->bindParam(':name1', $user->name1 );
+$stmt->bindParam(':semester', $user->sem  );
+$stmt->bindParam(':type_of_course', $user->type );
+$stmt->bindParam(':academic_course_code', $user->code );
+$stmt->bindParam(':academic_course_name', $user->name );
+$stmt->bindParam(':academic_course_credit', $user->credit );
+$stmt->bindParam(':course_credit', $user->credit1 );
 $stmt->bindParam(':approve_status', $user->approve_status );
+$stmt->bindParam(':course_name', $user->name1 );
+$stmt->bindParam(':course_code', $user->code1 );
+$stmt->bindParam(':used_credit1', $user->usedcredit1 );
+$stmt->bindParam(':course_code2', $user->code2 );
+$stmt->bindParam(':course_name2', $user->name2 );
+$stmt->bindParam(':course_credit2', $user->credit2 );
+$stmt->bindParam(':used_credit2', $user->usedcredit2 );
+
 if($stmt->execute()) {
     $response = ['status' => 1, 'message' => 'Record created successfully.'];
 } else {
@@ -30,4 +37,3 @@ if($stmt->execute()) {
 }
 echo json_encode($response);
 
-// approve_status
